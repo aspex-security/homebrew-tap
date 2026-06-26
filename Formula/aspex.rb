@@ -5,13 +5,13 @@
 class Aspex < Formula
   desc "AI Agent Security Toolkit: scan MCP servers and audit agent activity"
   homepage "https://github.com/aspex-security/aspex"
-  version "0.1.0"
+  version "0.2.0"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.1.0/aspex_darwin_amd64.tar.gz"
-      sha256 "5e41c981f3a4e5a7f5a7d57805ef7823b2ba77f36e99db99a4089b930d00c43c"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.2.0/aspex_darwin_amd64.tar.gz"
+      sha256 "1e028236e0d0710486dff7716d148b10246b27fa5d68d69f572114d9dffcd4d4"
 
       define_method(:install) do
         bin.install "aspex-scan"
@@ -19,8 +19,8 @@ class Aspex < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.1.0/aspex_darwin_arm64.tar.gz"
-      sha256 "e088f8d0fdefb2420e3723ab61aad35f23863b8329b84c23a95dc83962c5cf24"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.2.0/aspex_darwin_arm64.tar.gz"
+      sha256 "beffd3893e10d2a0d55648893587ef2f07c7a6a5b8b45c5b6a8bd1d59d7bccc6"
 
       define_method(:install) do
         bin.install "aspex-scan"
@@ -31,21 +31,57 @@ class Aspex < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.1.0/aspex_linux_amd64.tar.gz"
-      sha256 "67fc5d779d50e43f4e2b49a548134428ca6adaa9d6818a4129ce6026fa0bea19"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.2.0/aspex_linux_amd64.tar.gz"
+      sha256 "120646f504127ebb9d95dac5b683375d505b2b567625cae936a83960b2719851"
       define_method(:install) do
         bin.install "aspex-scan"
         bin.install "aspex-trace"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.1.0/aspex_linux_arm64.tar.gz"
-      sha256 "b3ef9b422863ec86960452abca629cddf2dd6bcf44303f7641d6ac159a5fbecb"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.2.0/aspex_linux_arm64.tar.gz"
+      sha256 "9a7c526944b34cfb60648ea45aeddf652c511337df5ea48c023274ab1e14610e"
       define_method(:install) do
         bin.install "aspex-scan"
         bin.install "aspex-trace"
       end
     end
+  end
+
+  def caveats
+    <<~EOS
+      Aspex is ready. Two commands are now available:
+
+        aspex-scan    — Scan MCP server configs for security risks
+        aspex-trace   — Audit AI agent activity from native client logs
+
+      ── QUICK START ────────────────────────────────────────────────
+        aspex-scan                  Scan all MCP clients on this machine
+        aspex-scan inspect github   Deep-inspect the 'github' server
+
+        aspex-trace                 Audit the last 24 h of agent activity
+        aspex-trace --since 7d      Audit the last 7 days
+
+      ── FULL HELP ──────────────────────────────────────────────────
+        aspex-scan --help
+        aspex-trace --help
+
+      ── COMMON WORKFLOWS ───────────────────────────────────────────
+        # Save an HTML report
+        aspex-scan --html ~/aspex-report.html
+
+        # CI: exit 1 on any critical finding
+        aspex-scan --fail-on critical
+
+        # Detect suspicious agent behavior
+        aspex-trace --suppress-noise --fail-on high
+
+        # Learn a behavioral baseline, then detect deviations
+        aspex-trace baseline --learn --since 7d
+        aspex-trace --baseline ~/.config/aspex/aspex-trace-baseline.json
+
+      No data is sent anywhere. Both tools run entirely offline.
+    EOS
   end
 
   test do
