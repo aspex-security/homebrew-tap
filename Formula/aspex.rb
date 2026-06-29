@@ -5,13 +5,13 @@
 class Aspex < Formula
   desc "AI Agent Security Toolkit: scan MCP servers and audit agent activity"
   homepage "https://github.com/aspex-security/aspex"
-  version "0.5.1"
+  version "0.5.2"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.5.1/aspex_darwin_amd64.tar.gz"
-      sha256 "07fdb9a17fd21d0d8e5532f35dbf940f9549acea85624135cc97ddaea08e040d"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.5.2/aspex_darwin_amd64.tar.gz"
+      sha256 "e68a66ace01d9217dcfcf09cfc38a149196f36dd9395a88a21ea30ce9ca1ea9c"
 
       define_method(:install) do
         bin.install "aspex-scan"
@@ -22,8 +22,8 @@ class Aspex < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.5.1/aspex_darwin_arm64.tar.gz"
-      sha256 "fc4e3914032b13536515289567398b557f0c6710f6fd79609320a28ef52450d1"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.5.2/aspex_darwin_arm64.tar.gz"
+      sha256 "ecc071be5cfecdca1089acafbbf716d290f78b718c695071a77a260c74d9406d"
 
       define_method(:install) do
         bin.install "aspex-scan"
@@ -37,8 +37,8 @@ class Aspex < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.5.1/aspex_linux_amd64.tar.gz"
-      sha256 "8f57c1c9a1dfd4c90370c561c51f89bfd7177bf6b917c5efa5d1d4e9c5a6bade"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.5.2/aspex_linux_amd64.tar.gz"
+      sha256 "a38d3ebb14ac21796bdc46af54111063b0835dcbe8e4119a0ddc5f0033804732"
       define_method(:install) do
         bin.install "aspex-scan"
         bin.install "aspex-trace"
@@ -48,8 +48,8 @@ class Aspex < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/aspex-security/aspex/releases/download/v0.5.1/aspex_linux_arm64.tar.gz"
-      sha256 "d68b959482a896b581771d20f9b8a191461eb77ebda37e3b9235cb3445da1553"
+      url "https://github.com/aspex-security/aspex/releases/download/v0.5.2/aspex_linux_arm64.tar.gz"
+      sha256 "7fbc1ae749dc05fd27e3b30ebf641744841f529f3aab46fbd9d87328e8047f85"
       define_method(:install) do
         bin.install "aspex-scan"
         bin.install "aspex-trace"
