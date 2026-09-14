@@ -37,7 +37,6 @@ cask "aspex" do
   binary "aspex-attack"
   binary "aspex-doctor"
 
-  end
 
   # No zap stanza required
 end
